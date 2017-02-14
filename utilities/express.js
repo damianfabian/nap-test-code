@@ -2,6 +2,7 @@
 var config = require('../config/config.js');
 
 var express = require("express");
+var compression = require('compression');
 var hbs = require('express-hbs');
 var expressParams = require('express-params');
 
@@ -29,7 +30,8 @@ var appConfiguration = {
 
     init: function() {
         var app = express();
-
+        app.use(compression());
+        
         appConfiguration.templateConfig(app);
 
         appConfiguration.enableCORS(app);

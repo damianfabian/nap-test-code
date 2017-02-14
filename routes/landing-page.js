@@ -1,3 +1,10 @@
+var config = require('../config/config')
+var React = require('react')
+var ReactDOM = require('react-dom/server')
+
+var components = require(config.ROOT + '/components/app.jsx')
+var App = React.createFactory(components.App)
+
 var request = require('request');
 
 var routes = {
@@ -5,8 +12,8 @@ var routes = {
 
         // set up landing page
         app.get('/', function (req, res, next) {
-
-            request('http://127.0.0.1:3000/api/products', function(error, response, body) {
+            
+            request(`${config.API_URL}/api/products`, (error, response, body) => {
                 res.render('index', {
                     metadata: {
                         title: 'NAP Tech Test'
@@ -14,7 +21,7 @@ var routes = {
                     title: 'NAP Tech Test',
                     layout: 'layouts/default',
                     template: 'index',
-                    products: body
+                    component: ReactDOM.renderToString(App({products: body}))
                 });
             });
         });

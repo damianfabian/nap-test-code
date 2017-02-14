@@ -1,3 +1,7 @@
+
+// Allow ES6 and React transpiler
+require("babel-core/register");
+
 // config
 var config = require(__dirname + '/config/config'),
 	setUpRoutes = require(config.ROOT + '/routes/setup-routes').configureRoutes;
