@@ -2,6 +2,8 @@ var isNode = typeof module !== 'undefined' && module.exports
   , React = isNode ? require('react') : window.React
   , ReactDOM = isNode ? require('react') : window.ReactDOM
 
+import Products from './products.jsx'
+
 class App extends React.Component {
     constructor(props) {
         super(props)
@@ -12,13 +14,7 @@ class App extends React.Component {
     render() {
         return (<div>
             <h1>Hello from React</h1>
-            <ul>
-            {
-                this.state.products && this.state.products.data.map((item, i) => {
-                    return <li key={i}>{item.name}</li>
-                })
-            }
-            </ul>
+            <Products db={this.state.products} />
         </div>
         )
     }

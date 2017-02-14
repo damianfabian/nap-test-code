@@ -36,10 +36,15 @@ const buildResponse = ({...params}) => {
                     return {
                         id: product.id,
                         name: product.name.en,
-                        price: '£' + product.price.gross / product.price.divisor,
+                        price: `£${product.price.gross / product.price.divisor}`,
                         designer: product.brand.name.en,
-                        image: {
-                            outfit: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}_ou_sl.jpg`
+                        onSale : product.onSale,
+                        sizes: product.saleableStandardSizes,
+                        badges: product.badges,
+                        images: {
+                            outfit: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}_ou_sl.jpg`,
+                            small: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}_in_sl.jpg`,
+                            large: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}'_in_pp.jpg`
                         }
                     }
                 })
