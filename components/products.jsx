@@ -1,22 +1,26 @@
 import React, { Component, PropTypes } from 'react';
-
+import Product from './product.jsx'
 class ProductList extends Component {
     constructor (props) {
         super(props)
         
-        this.state = this.buildState(this.props)
+        this.state = this.buildState(this.props)        
+        this.onScroll = this.onScroll.bind(this)
     }
 
     buildState (props) {
         const data = this.props.db.data && this.props.db.data.slice(0, 9) || []
+
         return {
             items: 9,
             page: 0,
             total : this.props.db.total,
-            data: data
+            data: data,
+            viewport: {
+                top: 0,
+                height: 0
+            }
         }
-
-        this.onScroll = this.onScroll.bind(this)
     }
 
     componentWillReceiveProps (nextProps) {
@@ -28,52 +32,71 @@ class ProductList extends Component {
         const {page, items} = this.state
         const end = (page+1) * this.state.items
         const data = this.props.db.data.slice(0, end + this.state.items)
-        this.setState({ data: data, page: page + 1})
+        this.setState({ data: data, page: page + 1, loading: false})
     }
 
     componentDidMount () {
-        const list = ReactDOM.findDOMNode(this.refs.container)
-        list.addEventListener('scroll', this.onScroll);
+        window.addEventListener('scroll', this.onScroll, false);
+        window.addEventListener('resize', this.updateViewport, false);
+        this.onScroll()
     }
 
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll);
+    }
+    
+
     onScroll (evt) {
-        console.log(evt)
-        this.loadMore()
+        var body = document.body;
+        var html = document.documentElement;
+
+        var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                        html.clientHeight, html.scrollHeight, html.offsetHeight );
+        var currentPos = window.scrollY + body.clientHeight;
+
+        // Setting object for images
+        this.setState({
+            viewport: {
+                top: window.scrollY,
+                height: body.clientHeight
+            }
+        });
+
+        // Checking if we need to load more products
+        if( currentPos  === height ) {
+            this.setState({ loading: true })
+            this.loadMore()
+        }
     }
 
     render () {
         
         return (
-            <div className='container' ref='container'>
-                <div className='row'>
+                <div>
+                    <div className='row'>
                     {
                         this.state.data.map((prod) => {
-                            const onSale = prod.onSale ? <span className='onsale' /> : null
-                            return (
-                                <div key={prod.id} className='product col-md-4'>
-                                    <div className='image'>
-                                        { onSale }
-                                        <img src={prod.images.outfit} />
-                                    </div>
-                                    <div className='descripcion'>
-                                        <p className='brand'>{prod.designer}</p>
-                                        <p className='name'>{prod.name}</p>
-                                        <span className='price'>{prod.price}</span>
-                                        
-                                    </div>
-                                </div>
-                            )
+                            return prod.id ? ( <Product key={prod.id} data={prod} viewport={this.state.viewport} />) :
+                                null
                         })
                     
                     }
+                    </div>
+                    <div className='row'>
+                    {
+                        this.state.loading ? <div className='row loading'>
+                            <h2>Loading...</h2>
+                            <img src='/images/loading.gif' />
+                        </div> : null
+                    }
+                    </div>
                 </div>
-            </div>
         );
     }
 }
 
 ProductList.propTypes = {
-    db: PropTypes.object
+    db: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ])
 };
 
 export default ProductList;

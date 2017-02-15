@@ -21,7 +21,8 @@ var routes = {
                     title: 'NAP Tech Test',
                     layout: 'layouts/default',
                     template: 'index',
-                    component: ReactDOM.renderToString(App({products: body}))
+                    reactData: JSON.stringify({data: body}),
+                    component: ReactDOM.renderToString(App({data: body}))
                 });
             });
         });
