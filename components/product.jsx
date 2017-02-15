@@ -11,6 +11,22 @@ class Product extends Component {
         this.updateImagePosition = this.updateImagePosition.bind(this)
     }
     
+    isMobile () {
+        if ( navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+        ) {
+            return true
+        }
+        else {
+            return false
+        }
+
+    }
     componentWillReceiveProps (nextProps) {
         console.log(nextProps)
         this.setState({ viewport: nextProps.viewport })
@@ -38,7 +54,7 @@ class Product extends Component {
 
         const onSale = prod.onSale ? <span className='onsale' /> : null
         return (
-            <div key={prod.id} className='product col-md-4'>
+            <div key={prod.id} className='product col-md-4 col-sm-4 col-xs-4'>
                 <div className='image'>
                     { onSale }
                     <ProductImage src={prod.images.outfit} 

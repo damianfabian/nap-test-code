@@ -26,7 +26,7 @@ class App extends React.Component {
                     <hr className='hr-text' data-content='Total' />
                 </div>
                 <div className='row'>
-                    <div className='col-md-3 col-xs-0 hidden-xs'>
+                    <div className='col-md-3 col-sm-3 hidden-xs'>
                         <ul className='list-group'>
                             <li className='list-group-item'>Cras justo odio</li>
                             <li className='list-group-item'>Dapibus ac facilisis in</li>
@@ -35,7 +35,7 @@ class App extends React.Component {
                             <li className='list-group-item'>Vestibulum at eros</li>
                         </ul>
                     </div>
-                    <div className='col-md-9 col-xs-12'>
+                    <div className='col-md-9 col-sm-9 col-xs-12'>
                         <Products db={this.state.products} />
                     </div>
                 </div>

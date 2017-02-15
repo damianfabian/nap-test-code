@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1a74b577d89779d461e5"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "da2667247a90118503b4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -10163,7 +10163,7 @@ var App = function (_React$Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-3 col-xs-0 hidden-xs' },
+                        { className: 'col-md-3 col-sm-3 hidden-xs' },
                         _react2.default.createElement(
                             'ul',
                             { className: 'list-group' },
@@ -10196,7 +10196,7 @@ var App = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-9 col-xs-12' },
+                        { className: 'col-md-9 col-sm-9 col-xs-12' },
                         _react2.default.createElement(_products2.default, { db: this.state.products })
                     )
                 )
@@ -10338,6 +10338,15 @@ var Product = function (_Component) {
     }
 
     _createClass(Product, [{
+        key: 'isMobile',
+        value: function isMobile() {
+            if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             console.log(nextProps);
@@ -10369,7 +10378,7 @@ var Product = function (_Component) {
             var onSale = prod.onSale ? _react2.default.createElement('span', { className: 'onsale' }) : null;
             return _react2.default.createElement(
                 'div',
-                { key: prod.id, className: 'product col-md-4' },
+                { key: prod.id, className: 'product col-md-4 col-sm-4 col-xs-4' },
                 _react2.default.createElement(
                     'div',
                     { className: 'image' },
