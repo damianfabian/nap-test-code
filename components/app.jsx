@@ -1,7 +1,4 @@
-var isNode = typeof module !== 'undefined' && module.exports
-  , React = isNode ? require('react') : window.React
-  , ReactDOM = isNode ? require('react') : window.ReactDOM
-
+import React from 'react'
 import Products from './products.jsx'
 
 class App extends React.Component {
@@ -20,10 +17,4 @@ class App extends React.Component {
     }
 }
 
-
-if (isNode) {
-  exports.App = App
-} else {
-  ReactDOM.render(<App data={window.___INITIAL_PROPS___}/>, document.getElementById('react-app'))
-}
-
+exports.App = App

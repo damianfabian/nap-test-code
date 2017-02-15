@@ -5,16 +5,31 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app"
+    "start": "node app",
+    "dev": "webpack && node app",
+    "build": "SET NODE_ENV=production webpack && node app"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-preset-react": "^6.22.0",
     "express": "^4.9.8",
     "express-hbs": "^0.7.11",
     "express-params": "0.0.3",
     "lodash": "^2.4.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router": "^3.0.2",
     "request": "^2.46.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.1",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "eslint": "^3.15.0",
+    "eslint-loader": "^1.6.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
   }
 }
