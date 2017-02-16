@@ -58,7 +58,7 @@ const buildResponse = ({...params}) => {
 
         default:
             const hasData = params.data
-            if(data instanceof Object) {
+            if (data instanceof Object) {
                 buildResponse( Object.assign({params}, {type: TYPE_RESPONSE.ONE}) )
             } else if (data instanceof Array) {
                 buildResponse( Object.assign({params}, {type: TYPE_RESPONSE.LIST}) )

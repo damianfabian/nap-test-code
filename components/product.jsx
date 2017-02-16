@@ -40,7 +40,7 @@ class Product extends Component {
         var min = this.props.viewport.top
         var max = this.props.viewport.top + this.props.viewport.height
         
-        if ((min <= (top + height) && top <= (max - 100))) {
+        if ((min <= (top + height) && top <= max)) {
             this.setState({ showImage: true})
         }
     }

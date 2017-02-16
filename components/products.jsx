@@ -9,12 +9,13 @@ class ProductList extends Component {
     }
 
     buildState (props) {
-        const data = this.props.db.data && this.props.db.data.slice(0, 9) || []
+        const data = props.db.data && props.db.data.slice(0, 9) || []
 
         return {
             items: 9,
             page: 0,
-            total : this.props.db.total,
+            total : props.db.total,
+            db: props.db.data,
             data: data,
             viewport: {
                 top: 0,
@@ -22,16 +23,16 @@ class ProductList extends Component {
             }
         }
     }
-
+    
     componentWillReceiveProps (nextProps) {
         const data = this.buildState(nextProps)
-        this.setState(data)
+        this.setState(data, () => this.onScroll())
     }
     
     loadMore () {
         const {page, items} = this.state
         const end = (page+1) * this.state.items
-        const data = this.props.db.data.slice(0, end + this.state.items)
+        const data = this.state.db.slice(0, end + this.state.items)
         this.setState({ data: data, page: page + 1, loading: false})
     }
 
@@ -41,7 +42,7 @@ class ProductList extends Component {
         this.onScroll()
     }
 
-    componentWillUnmount() {
+    componentWillUnmount () {
         window.removeEventListener('scroll', this.onScroll);
     }
     
@@ -63,17 +64,16 @@ class ProductList extends Component {
         });
 
         // Checking if we need to load more products
-        if( currentPos  === height ) {
+        if ( currentPos  === height ) {
             this.setState({ loading: true })
             this.loadMore()
         }
     }
 
     render () {
-        
         return (
-                <div>
-                    <div className='row'>
+            <div>
+                <div className='row product-container'>
                     {
                         this.state.data.map((prod) => {
                             return prod.id ? ( <Product key={prod.id} data={prod} viewport={this.state.viewport} />) :
@@ -81,16 +81,16 @@ class ProductList extends Component {
                         })
                     
                     }
-                    </div>
-                    <div className='row'>
+                </div>
+                <div className='row'>
                     {
                         this.state.loading ? <div className='row loading'>
                             <h2>Loading...</h2>
                             <img src='/images/loading.gif' />
                         </div> : null
                     }
-                    </div>
                 </div>
+            </div>
         );
     }
 }

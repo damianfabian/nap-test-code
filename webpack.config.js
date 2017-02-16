@@ -2,7 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 var isProd = process.env.NODE_ENV === 'production'
 var isDev = !isProd
-var root = function(dir){ return path.resolve(__dirname, dir) }
+var root = function (dir) { return path.resolve(__dirname, dir) }
 
 var plugins = isDev ? [
     new webpack.HotModuleReplacementPlugin()
@@ -21,12 +21,12 @@ module.exports = {
     plugins: plugins,
     module: {
         loaders: [{
-            test: /\.jsx$/,
+            test: /\.jsx?$/,
             loaders: ['babel-loader'],
             exclude: '/(node_modules|spec/.js$)/'
         },
         {
-            test: /\.jsx$/,
+            test: /\.jsx?$/,
             enforce: 'pre',
             exclude: /(node_modules|\.spec\.js)/,
             use: [
