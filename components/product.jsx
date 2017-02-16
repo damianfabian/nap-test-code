@@ -28,7 +28,6 @@ class Product extends Component {
 
     }
     componentWillReceiveProps (nextProps) {
-        console.log(nextProps)
         this.setState({ viewport: nextProps.viewport })
     }
     
@@ -41,8 +40,6 @@ class Product extends Component {
         var min = this.props.viewport.top
         var max = this.props.viewport.top + this.props.viewport.height
         
-        console.log(min, max, top, height)
-
         if ((min <= (top + height) && top <= (max - 100))) {
             this.setState({ showImage: true})
         }

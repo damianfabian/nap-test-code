@@ -26,12 +26,18 @@ const buildResponse = ({...params}) => {
 
         case TYPE_RESPONSE.LIST:
             const {data, offset, limit, total} = params
-
             return {
                 offset: offset,
                 limit: limit,
                 total: total,
-                data: data.slice(offset, offset+limit).map(function(product) {
+                schemes: data.metadata.schemes,
+                filters: [
+                    {
+                        title: 'Sizes',
+                        data: data.metadata.saleableStandardSizeFacets
+                    }
+                ],
+                data: data.data.slice(offset, offset+limit).map(function(product) {
                     // Simplify payload - more data available in fixture
                     return {
                         id: product.id,

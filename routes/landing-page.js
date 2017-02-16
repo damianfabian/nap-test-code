@@ -19,7 +19,7 @@ var routes = {
                         title: 'NAP Tech Test'
                     },
                     title: 'NAP Tech Test',
-                    layout: 'layouts/default',
+                    layout: 'default',
                     template: 'index',
                     reactData: JSON.stringify({data: body}),
                     component: ReactDOM.renderToString(App({data: body}))

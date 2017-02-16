@@ -1,5 +1,6 @@
 import React from 'react'
 import Products from './products.jsx'
+import FilterList from './filterlist.jsx'
 
 class App extends React.Component {
     constructor(props) {
@@ -7,7 +8,24 @@ class App extends React.Component {
         this.state ={
             products: typeof props.data === "object" ? props.data : JSON.parse(props.data)
         } 
+
+        this.changeFilters = this.changeFilters.bind(this)
     }
+
+    changeFilters (e) {
+        const checked = e.target.checked 
+        const key = e.target.id
+        const {[key]: current, ...state} = this.state
+        
+        console.log(key, current, e.target.checked)
+
+        if(e.target.checked) {
+            state[key] = true;
+        } 
+
+        this.setState(state, () => { console.log(this.state) })
+    }
+
     render() {
         return (
             <div className='container' ref='container'>
@@ -27,13 +45,22 @@ class App extends React.Component {
                 </div>
                 <div className='row'>
                     <div className='col-md-3 col-sm-3 hidden-xs'>
-                        <ul className='list-group'>
-                            <li className='list-group-item'>Cras justo odio</li>
-                            <li className='list-group-item'>Dapibus ac facilisis in</li>
-                            <li className='list-group-item'>Morbi leo risus</li>
-                            <li className='list-group-item'>Porta ac consectetur ac</li>
-                            <li className='list-group-item'>Vestibulum at eros</li>
-                        </ul>
+                        {
+                            this.state.products.filters.map((filter) => {
+                                return <div key={filter.title}>
+                                    <h2>{filter.title}</h2>
+                                    {
+                                        this.state.products.schemes.map((scheme) => {
+                                            const data = filter.data.filter((item) => {
+                                                return item.scheme === scheme
+                                            })
+                                            return <FilterList key={`${filter.title}-${scheme}`} data={data} title={scheme} onClick={this.changeFilters} />            
+                                        })
+                                        
+                                    }
+                                </div>
+                            })
+                        }
                     </div>
                     <div className='col-md-9 col-sm-9 col-xs-12'>
                         <Products db={this.state.products} />

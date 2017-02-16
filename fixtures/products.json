@@ -38608,6 +38608,7 @@
             "scheme":"Sport",
             "sort":6
          }
-      ]
+      ],
+      "schemes": ["Clothing","Lingerie","Sport"]
    }
 }

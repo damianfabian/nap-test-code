@@ -3,7 +3,7 @@ var _ = require('lodash');
 var _builder = require(config.ROOT + '/utilities/response.js') 
 
 // Mock API using fixture so we're not dependent on network connectivity
-var allProducts = require(config.ROOT +'/fixtures/products.json').data;
+var allProducts = require(config.ROOT +'/fixtures/products.json');
 
 var routes = {
     init: function(app) {
