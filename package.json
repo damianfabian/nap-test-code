@@ -19,7 +19,7 @@
     "lint:react": "eslint ./components/*",
     "lint:node": "eslint ./routes/*"
   },
-  "author": "",
+  "author": "Fabian Jaramillo",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.16.1",

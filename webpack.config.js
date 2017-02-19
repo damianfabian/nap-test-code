@@ -1,13 +1,16 @@
 var path = require('path')
 var webpack = require('webpack')
 var isProd = process.env.NODE_ENV === 'production'
-var isDev = !isProd
+
 var root = function (dir) { return path.resolve(__dirname, dir) }
 
-var plugins = isDev ? [
-    new webpack.HotModuleReplacementPlugin()
-] : [
-    new webpack.optimize.UglifyJsPlugin()
+var plugins = isProd && [
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.DefinePlugin({
+        'process.env': {
+            'NODE_ENV': JSON.stringify('production')
+        }
+    })
 ]
 
 module.exports = {
@@ -18,7 +21,7 @@ module.exports = {
         'react': 'React',
         'react-dom': 'ReactDOM'
     },
-    devtool: 'source-map', // Allow Source Map to Debug
+    devtool: isProd ? 'cheap-module-source-map' : 'source-map', // Allow Source Map to Debug
     entry: root('components/index.jsx'),
     plugins: plugins,
     module: {
