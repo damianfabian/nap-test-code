@@ -8,7 +8,7 @@ var App = React.createFactory(components.App)
 var request = require('request');
 
 var routes = {
-    init: function(app) {
+    init: function (app) {
 
         // set up landing page
         app.get('/', function (req, res, next) {

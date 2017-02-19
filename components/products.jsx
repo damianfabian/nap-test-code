@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Product from './product.jsx'
+import * as babel from 'babel-polyfill'
+
 class ProductList extends Component {
     constructor (props) {
         super(props)
@@ -29,11 +31,29 @@ class ProductList extends Component {
         this.setState(data, () => this.onScroll())
     }
     
-    loadMore () {
-        const {page, items} = this.state
-        const end = (page+1) * this.state.items
-        const data = this.state.db.slice(0, end + this.state.items)
-        this.setState({ data: data, page: page + 1, loading: false})
+    async loadMore () {
+        let data
+        const {page, items, db} = this.state
+        const end = ( (page+1) * items ) + items
+
+        if ( end > db.length && this.props.isMobile ) {
+            if (this.inProgress) return null
+            const newData = await this.props.onRequestData()
+            const newDB = [].concat(db).concat(newData.data) // Concat the current items with the new from DB
+            data = newDB.slice(0, end) // Infinite Scrolling in Mobile
+            // Set the new items to display and change the db with the new data
+            this.inProgress = true // To Avoid send to request at the same time
+            this.setState({ data: data, page: page + 1, loading: false, db: newDB}, () => { this.inProgress = false })
+        } else {
+            if (end > db.length) {
+                data = db.slice(0, end)
+                this.setState({ data: data, page: page + 1, loading: false, stopLoading: true})
+                return null
+            } 
+            data = db.slice(0, end)
+            this.setState({ data: data, page: page + 1, loading: false})
+        }
+        
     }
 
     componentDidMount () {
@@ -45,9 +65,10 @@ class ProductList extends Component {
     componentWillUnmount () {
         window.removeEventListener('scroll', this.onScroll);
     }
-    
-
+ 
     onScroll (evt) {
+        
+
         var body = document.body;
         var html = document.documentElement;
 
@@ -65,8 +86,14 @@ class ProductList extends Component {
 
         // Checking if we need to load more products
         if ( currentPos  === height ) {
-            this.setState({ loading: true })
-            this.loadMore()
+            // If reach the end of data, stop to loading more
+            if (this.state.stopLoading || this.inProgress) {
+                return null
+            } else {
+                this.setState({ loading: true })
+                this.loadMore()
+            }
+            
         }
     }
 
@@ -96,7 +123,9 @@ class ProductList extends Component {
 }
 
 ProductList.propTypes = {
-    db: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ])
+    db: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
+    isMobile: PropTypes.bool,
+    onRequestData: PropTypes.func
 };
 
 export default ProductList;

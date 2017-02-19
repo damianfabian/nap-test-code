@@ -15,7 +15,7 @@ class Image extends Component {
     render () {
         var img = (this.props.showImage) ? this.props.src : this.props.loader;
         return (
-            <img ref='el' src={img} alt={this.props.alt} />
+            <img ref='el' src={img} alt={this.props.alt} onClick={this.props.onClick} />
         );
     }
 }
@@ -25,7 +25,8 @@ Image.propTypes = {
     showImage: PropTypes.bool,
     alt: PropTypes.string,
     src: PropTypes.string,
-    loader: PropTypes.string
+    loader: PropTypes.string,
+    onClick: PropTypes.func
 }
 
 Image.defaultProps = {

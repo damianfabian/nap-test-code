@@ -1,6 +1,7 @@
 var config = require('../../config/config')
 var _ = require('lodash');
 var _builder = require(config.ROOT + '/utilities/response.js') 
+var _util = require(config.ROOT + '/utilities/utilities.js') 
 
 // Mock API using fixture so we're not dependent on network connectivity
 var allProducts = require(config.ROOT +'/fixtures/products.json');
@@ -30,6 +31,7 @@ var routes = {
         app.post('/api/products', function (req, res, next) {
             var offset = parseInt(req.body.offset) || 0;
             var limit = parseInt(req.body.limit) || 60;
+            var orderby = req.body.orderby || ''
             var filters = req.body.filters || []
             
 
@@ -41,11 +43,12 @@ var routes = {
             }) : []
 
             let result = filterData.length > 0 ? Object.assign({}, allProducts, {data: filterData}) : allProducts
-
             if (offset > result.data.length) {
                 return res.type('json').sendStatus(400);
             }
 
+            ////// ORDER BY /////////
+            result.data = orderby ? _util.sortby(result.data.slice(), orderby) : result.data.slice()
             res.json(_builder.build({ 
                 total: result.data.length, 
                 offset: offset, 

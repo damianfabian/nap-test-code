@@ -38,9 +38,35 @@ You can replicate these or if you think there is something we should be doing, o
 
 To run the app:
 
+Verify you have Node V6.9.5 to support Webpack 2
+
 ```shell
 $ npm install
 $ npm start
+```
+
+## Dev
+
+To run the app in dev mode with watch, open 2 consoles. One to run the app and other to watch React App.
+
+To Run Server:
+
+```shell
+$ npm run dev
+```
+
+To Watch React App:
+
+```shell
+$ npm run dev:watch
+```
+
+## Test
+
+To run test:
+
+```shell
+$ npm run test
 ```
 
 # Apis

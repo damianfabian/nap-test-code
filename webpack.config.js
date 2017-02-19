@@ -14,7 +14,9 @@ module.exports = {
     externals: {
         'react/addons': true, // Do not include these externals in the bundle
         'react/lib/ExecutionEnvironment': true,
-        'react/lib/ReactContext': true
+        'react/lib/ReactContext': true,
+        'react': 'React',
+        'react-dom': 'ReactDOM'
     },
     devtool: 'source-map', // Allow Source Map to Debug
     entry: root('components/index.jsx'),

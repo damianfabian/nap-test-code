@@ -20,7 +20,7 @@ const buildResponse = ({...params}) => {
                 images: {
                     outfit: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}_ou_sl.jpg`,
                     small: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}_in_sl.jpg`,
-                    large: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}'_in_pp.jpg`
+                    large: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}_in_pp.jpg`
                 }
             }
 
@@ -37,7 +37,7 @@ const buildResponse = ({...params}) => {
                         data: data.metadata.saleableStandardSizeFacets
                     }
                 ],
-                data: data.data.slice(offset, offset+limit).map(function(product) {
+                data: data.data.slice(offset, offset+limit).map((product) => {
                     // Simplify payload - more data available in fixture
                     return {
                         id: product.id,
@@ -50,7 +50,7 @@ const buildResponse = ({...params}) => {
                         images: {
                             outfit: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}_ou_sl.jpg`,
                             small: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}_in_sl.jpg`,
-                            large: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}'_in_pp.jpg`
+                            large: `//cache.net-a-porter.com/images/products/${product.id}/${product.id}_in_pp.jpg`
                         }
                     }
                 })

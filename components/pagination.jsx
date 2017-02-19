@@ -18,7 +18,6 @@ class Pagination extends Component {
     componentWillReceiveProps (nextProps) {
         this.setState(this.buildState(nextProps))
     }
-    
 
     onPageChange (e, page) {
         if (this.props.onPageChange) {
@@ -34,7 +33,7 @@ class Pagination extends Component {
 
         if (page !== this.state.curPage) {
             if (this.props.onNext) {
-                this.props.onNext(e, this.state.curPage - 1)
+                this.props.onBack(e, this.state.curPage - 1)
             }
             this.setState({
                 curPage: this.state.curPage - 1
@@ -82,14 +81,14 @@ class Pagination extends Component {
         return (
             <ul className='pagination'>
                 {
-                    [
-                        <li key='back' onClick={(e) => this.onBack(e)}><span><i className='glyphicon glyphicon-menu-left' /></span></li>,
+                    this.state.pages > 0 ? [
+                        <li key='back' className='back' onClick={(e) => this.onBack(e)}><span><i className='glyphicon glyphicon-menu-left' /></span></li>,
                         this.getPages().map((page) => {
                             const active = page === this.state.curPage ? 'active' : ''
                             return <li key={page} className={active} onClick={(e) => this.onPageChange(e, page)}><span>{page + 1}</span></li>
                         }),
                         <li key='next' onClick={(e) => this.onNext(e)}><span><i className='glyphicon glyphicon-menu-right' /></span></li>
-                    ]
+                    ] : null
                 }     
             </ul>
         );
@@ -107,7 +106,9 @@ Pagination.propTypes = {
 };
 
 Pagination.defaultProps = {
-    paginationSize: 5
+    paginationSize: 5,
+    total: 0,
+    itemsPage: 10
 }
 
 export default Pagination;

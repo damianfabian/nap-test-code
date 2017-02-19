@@ -1,0 +1,21 @@
+1- Added POST endpoint to Product Resources
+2- Added Compression and body-parser to Express
+3- Added response library to handle which data it will return the API Resources
+4- Added utilities library to handle sort operations
+5- Combined product routes in one file inside API folder to organize routes.
+6- Added error handling routes to show errors according to environment variables.
+7- Added node environment variables NODE_IP, NODE_PORT, NODE_ENV
+8- Added ESLint, mocha, chai, enzyme, istanbul and isparta for testing purpose
+9- Use webpack 2 to compile the client app that is located in components folder, the bundle will be generated inside public/js
+10- Added react libraries inside template for cache purpose, also added theme.css file for styling
+11- Added default error page for production environment
+12- Added global variable window.REACT_APP_DATA to pass data when server rendering
+13- Added TODO's in all the application for future improves
+
+
+NOTE: 
+
+1- Webpack 2 requires Node v6.9.5 as you might found problems with older versions.
+2- The current project was developed in Mac OS. If you run this in windows you will need to change some commands inside the package.json
+
+
