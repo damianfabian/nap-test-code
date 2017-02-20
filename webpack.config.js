@@ -4,14 +4,14 @@ var isProd = process.env.NODE_ENV === 'production'
 
 var root = function (dir) { return path.resolve(__dirname, dir) }
 
-var plugins = isProd && [
+var plugins = isProd ? [
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.DefinePlugin({
         'process.env': {
             'NODE_ENV': JSON.stringify('production')
         }
     })
-]
+] : []
 
 module.exports = {
     externals: {

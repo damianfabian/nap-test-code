@@ -16,6 +16,5 @@
 NOTE: 
 
 1- Webpack 2 requires Node v6.9.5 as you might found problems with older versions.
-2- The current project was developed in Mac OS. If you run this in windows you will need to change some commands inside the package.json
 
 
